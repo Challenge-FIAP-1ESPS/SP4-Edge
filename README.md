@@ -133,8 +133,8 @@ O código completo do ESP32 está no arquivo CODIGO e é possível acessar pelo 
    
 OBS: Se estivesse em uma aplicação real conectando á plataforma em nuvem (TagoIO), antes da etapa "Nova leitura de estoque" existiriam outras duas:
 - Requisição HTTP (POST) - Irá postar os dados na plataforma de nuvem
-- Enviar dados para a plataforma em nuvem (TagoIO): A plataforma escolhida, Tago.io, irá receber os dados de um sensor. Nesse caso, o da distância.
-Logo depois, o fluxo seria o mesmo, com exceção de envio para exibição do dashboard no Node-RED, uma vez que o próprio tago.io poderia fazer isso.
+- Enviar dados para a plataforma em nuvem (TagoIO): A plataforma escolhida, TagoIO, irá receber os dados de um sensor. Nesse caso, o da distância.
+Logo depois, o fluxo seria o mesmo, com exceção de envio para exibição do dashboard no Node-RED, uma vez que o próprio TagoIO poderia fazer isso.
 
 ## Anexos
 
