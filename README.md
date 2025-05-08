@@ -48,7 +48,7 @@ Esses componentes operam embarcados no ESP32, que coleta os dados, classifica o 
 
 ## Código do Microcontrolador
 
-O código completo do ESP32 está no arquivo CODIGO e é possível acessar pelo link do Wokwi: https://wokwi.com/projects/429667778703380481
+O código completo do ESP32 está no arquivo CODIGO e é possível acessar pelo link do Wokwi: https://wokwi.com/projects/429667778703380481 
 
 ![image](https://github.com/user-attachments/assets/e6a53b07-fd96-4a7c-ae4d-1f4a229d7356)
 
