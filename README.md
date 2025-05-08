@@ -99,13 +99,14 @@ O código completo do ESP32 está no arquivo CODIGO e é possível acessar pelo 
 5. Mensagens iniciais no monitor serial e display.
 
 ### Configuração no loop()
-1. A cada 5 segundos (SEND_INTERVAL):
-  a. Leitura do valor simulado de RFID.
-  b. Leitura da distância via sensor ultrassônico.
-  c. Classificação do status do estoque com base na distância.
-  d. Montagem de objeto JSON com rfid, distancia e status.
-  e. Envio do JSON via HTTPS (POST) para o endpoint do TagoIO.
-  f. Exibição das informações no display LCD (Apenas para teste interno).
+1. A cada 5 segundos (`SEND_INTERVAL`):
+   a. Leitura do valor simulado de RFID.  
+   b. Leitura da distância via sensor ultrassônico.  
+   c. Classificação do status do estoque com base na distância.  
+   d. Montagem de objeto JSON com `rfid`, `distancia` e `status`.  
+   e. Envio do JSON via HTTPS (POST) para o endpoint do TagoIO.  
+   f. Exibição das informações no display LCD (apenas para teste interno).
+
 2. Os dados são armazenados na nuvem e podem ser acessados no dashboard do TagoIO.
 
 ## Diagrama da arquitetura e fluxo do projeto
