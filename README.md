@@ -135,7 +135,9 @@ OBS: Se estivesse em uma aplicação real conectando á plataforma em nuvem (Tag
 Logo depois, o fluxo seria o mesmo, com exceção de envio para exibição do dashboard no Node-RED, uma vez que o próprio TagoIO poderia fazer isso.
 
 ## Anexos
-
+![image](https://github.com/user-attachments/assets/67861e1e-a66f-47c0-a78f-ca608c5f4d27)
+![image](https://github.com/user-attachments/assets/59809989-f2d6-4b99-9921-e734d0652657)
+![image](https://github.com/user-attachments/assets/c67e517b-be6a-41cb-8352-4b1e012628f6)
 
 ## Links Externos
 - Documentação do Projeto: https://docs.google.com/document/d/1Z9Fu4Gfrlv3Qu_EUzGQVUTOyZfjbj4FEVXcCdOAh9mo/edit?usp=sharing
