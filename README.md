@@ -122,18 +122,18 @@ O código completo do ESP32 está no arquivo CODIGO e é possível acessar pelo 
 - Entrar no loop contínuo: O programa entra no loop(), onde executa de forma contínua a checagem de sensores e o envio de dados.
 - Ler sensor ultrassônico: O ESP32 mede a distância usando o sensor HC-SR04 para estimar a quantidade de estoque disponível.
 - Ler cartão RFID: Um valor fixo é utilizado para simular a leitura de um cartão RFID. Em futuras versões, essa leitura será feita por hardware real.
-- Configurar LCD: O display LCD é inicializado.(Apenas para teste interno)
-- Exibir Dados no LCD: O ID RFID e a distância são mostrados na tela.
+- Configurar LCD: O display LCD é inicializado. (Apenas para teste interno)
+- Exibir Dados no LCD: O ID RFID e a distância são mostrados na tela. (Apenas para teste interno)
 - Nova leitura de estoque?: O sistema verifica se deve continuar a leitura.
   - Se "Não": O sistema volta no loop para ler novamente os sensores.
   - Se "Sim": 
     - Classificar status do estoque: Com base na distância medida, o sistema classifica o nível de estoque como "Cheio", "Médio" ou "Vazio".
     - Montar JSON com RFID, Distância e Status
-    - Publicar JSON via MQTT no tópico "test_topic_challenge", podendo ser recebido por ferramentas como o Node-RED, que o exibe em um dashboard ou executa ações com base nos dados.
+    - Publicar JSON via MQTT no tópico "test_topic_challenge", podendo ser recebido por ferramentas como o Node-RED ou a própria plataforma de nuvem TagoIO, que o exibe em um dashboard ou executa ações com base nos dados.
    
-OBS: Se estivesse em uma aplicação real conectando á plataforma em nuvem (tago.io), antes da etapa "Nova leitura de estoque" existiriam outras duas:
+OBS: Se estivesse em uma aplicação real conectando á plataforma em nuvem (TagoIO), antes da etapa "Nova leitura de estoque" existiriam outras duas:
 - Requisição HTTP (POST) - Irá postar os dados na plataforma de nuvem
-- Enviar dados para a plataforma em nuvem (tago.io): A plataforma escolhida, tago.io, irá receber os dados de um sensor. Nesse caso, o da distância.
+- Enviar dados para a plataforma em nuvem (TagoIO): A plataforma escolhida, Tago.io, irá receber os dados de um sensor. Nesse caso, o da distância.
 Logo depois, o fluxo seria o mesmo, com exceção de envio para exibição do dashboard no Node-RED, uma vez que o próprio tago.io poderia fazer isso.
 
 ## Anexos
