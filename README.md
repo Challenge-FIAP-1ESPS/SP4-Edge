@@ -46,8 +46,6 @@ Esses componentes operam embarcados no ESP32, que coleta os dados, classifica o 
 - **Portal Web:** [https://portalsabara.vercel.app/](https://portalsabara.vercel.app/)
 - O portal possui uma seção de cadastro da farmácia que contém um item de menu chamado `Dashboard`, no qual está incorporado o painel gerado no TagoIO via `iframe`.
 
----
-
 ## Código do Microcontrolador
 
 O código completo do ESP32 está no arquivo CODIGO e é possível acessar pelo link do Wokwi: https://wokwi.com/projects/429667778703380481
@@ -111,7 +109,7 @@ O código completo do ESP32 está no arquivo CODIGO e é possível acessar pelo 
 3. Os dados são armazenados na nuvem e podem ser acessados no dashboard do TagoIO.
 
 ## Diagrama da arquitetura e fluxo do projeto
-<!--colocar imagem-->
+![image](https://github.com/user-attachments/assets/ff2779e7-3242-47d6-ae60-843fe879fb09)
 
 ### Explicação do Fluxograma
 
