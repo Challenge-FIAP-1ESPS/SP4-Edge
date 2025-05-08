@@ -61,7 +61,7 @@ O código completo do ESP32 está no arquivo CODIGO e é possível acessar pelo 
 2. O ESP32 conecta-se à rede Wi-Fi definida.
 3. A cada intervalo de tempo, os dados coletados (RFID, distância e status) são enviados via requisição HTTPS (POST) para a plataforma TagoIO.
 4. O TagoIO recebe, armazena e exibe esses dados em um dashboard interativo e, quando necessário, envia notificações automáticas (ex: e-mail para estoque "Vazio").
-5. As informações também são exibidas localmente em um display LCD 16x2 para visualização física e rápida.
+5. As informações também estão exibidas localmente em um display LCD 16x2 apenas para testes internos.
 
 ### Bibliotecas Utilizadas
 - #include <Wire.h>: Comunicação I2C.
