@@ -28,7 +28,7 @@ Desenvolver um sistema inteligente de monitoramento de estoque que identifique a
 - **Microcontrolador:** ESP32
 - **Sensores:**
   - Ultrassônico HC-SR04 (mede a distância para estimar o nível de estoque)
-  - RFID MFRC522 (simulado, para identificar usuários)
+  - RFID MFRC522 (usado para identificar usuários)
   - Display LCD 16x2 I2C (mostra dados localmente)
 
 Esses componentes operam embarcados no ESP32, que coleta os dados, classifica o nível de estoque (Cheio, Médio ou Vazio) e envia via HTTPS para a nuvem.
@@ -55,7 +55,7 @@ O código completo do ESP32 está no arquivo CODIGO e é possível acessar pelo 
 ## Estrutura do projeto de Arduino -  Especificações Técnicas
 
 ### Como Funciona?
-1. O ESP32 lê o ID do cartão RFID (simulado) e a distância do sensor ultrassônico.
+1. O ESP32 lê o ID do cartão RFID e a distância do sensor ultrassônico.
 2. O ESP32 conecta-se à rede Wi-Fi definida.
 3. A cada intervalo de tempo, os dados coletados (RFID, distância e status) são enviados via requisição HTTPS (POST) para a plataforma TagoIO.
 4. O TagoIO recebe, armazena e exibe esses dados em um dashboard interativo e, quando necessário, envia notificações automáticas (ex: e-mail para estoque "Vazio").
@@ -70,7 +70,7 @@ O código completo do ESP32 está no arquivo CODIGO e é possível acessar pelo 
 
 ### Componentes Utilizados
 - ESP32: Controlador principal responsável pela leitura dos sensores, controle do LCD e comunicação Wi-Fi.
-- Sensor RFID MFRC522: Utilizado para ler o ID de um cartão RFID, simulando a identificação de um produto no estoque. (Ainda é só a simulação)
+- Sensor RFID MFRC522: Utilizado para ler o ID de um cartão RFID, simualando a identificação de um produto no estoque. 
 - Sensor Ultrassônico HC-SR04: Usado para medir a distância entre o sensor e um objeto, com o intuito de simular a quantidade de estoque restante.
 - LCD 16x2 I2C: Display utilizado para mostrar informações ao usuário: ID do cartão e a distância medida pelo sensor ultrassônico. (Apenas para teste interno)
 - Cabos e Protoboard: Para realizar as conexões físicas entre os componentes.
@@ -83,7 +83,7 @@ O código completo do ESP32 está no arquivo CODIGO e é possível acessar pelo 
 - const char* URL = "https://api.tago.io/data";: URL da API TagoIO para envio de dados.
 
 ### Funções principais
-- simulateRFID(): Retorna um valor fixo "12345678" para simular um cartão RFID.
+- simulateRFID(): Retorna um valor fixo "12345678" para simular um cartão RFID.//mudar depois
 - readDistance(): Mede a distância via sensor ultrassônico.
 - sendToTago(...): Envia os dados via HTTP POST com estrutura JSON compatível com TagoIO.
 - setup(): Inicializa Wi-Fi, display LCD e sensores.
@@ -107,6 +107,13 @@ O código completo do ESP32 está no arquivo CODIGO e é possível acessar pelo 
    f. Exibição das informações no display LCD (apenas para teste interno).
 
 3. Os dados são armazenados na nuvem e podem ser acessados no dashboard do TagoIO.
+
+### Leitura do cartão RFID
+- Na SPRINT 3, utilizamos apenas a função simulateRFID(), que retornava um conjunto de números ("123456789") sempre que o ID fosse solicitado. Isso porque era apeans uma simulação, nessa segunda etapa, estamos utilizando o sensor na versão física pois o simulador online não suporta as bibliotecas necessárias. Logo, aquela função não existe mais e passamos a usar a String getRFID() que retorna o valor do UID (Unique Identifier - Identificador Único) em hexadecimal.
+- Durante o desenvolvimento, descobrimos que existem alguns motivos para o UID ser impresso em hexadecimal:
+  - O cartão RFID armazena o UID como bytes binários.
+  - O formato mais usado internacionalmente para exibir esses bytes é hexadecimal (base 16).
+  - Muitas ferramentas, sistemas e leitores profissionais exibem os UIDs assim.
 
 ## Diagrama da arquitetura e fluxo do projeto
 ![image](https://github.com/user-attachments/assets/ff2779e7-3242-47d6-ae60-843fe879fb09)
