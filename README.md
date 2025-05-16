@@ -147,4 +147,4 @@ Logo depois, o fluxo seria o mesmo, com exceção de envio para exibição do da
 ![image](https://github.com/user-attachments/assets/c67e517b-be6a-41cb-8352-4b1e012628f6)
 
 ## Links Externos
-- Link Vídeo Explicação: 
+- Link Vídeo Explicação: https://youtu.be/m3dcbxTbark 
