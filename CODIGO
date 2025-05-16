@@ -2,37 +2,58 @@
 #include <HTTPClient.h>
 #include <WiFiClientSecure.h>
 #include <LiquidCrystal_I2C.h>
-
+#include <SPI.h>
+#include <MFRC522.h>
+ 
 #define TRIG_PIN 5
-#define ECHO_PIN 18
-
-const char* SSID = "Wokwi-GUEST";
-const char* PASSWORD = "";
+#define ECHO_PIN 4
+ 
+#define SS_PIN 15  
+#define RST_PIN 2  
+ 
+const char* SSID = "iPhone de Luiza";
+const char* PASSWORD = "luizaperfeita";
 const char* TAGO_DEVICE_TOKEN = "c5e8232c-ed2a-43e3-ae88-c678e59524a5";
-
+ 
 LiquidCrystal_I2C lcd(0x27, 16, 2);
-
-unsigned long lastSend = 0;
-const int SEND_INTERVAL = 5000;
-
+ 
+MFRC522 rfid(SS_PIN, RST_PIN);
+ 
+unsigned long lastSend = 0; //lastSend controla o tempo do último envio.
+const int SEND_INTERVAL = 5000; //define o tempo entre envios
+ 
 void setup() {
   Serial.begin(115200);
-  Serial.println("Iniciando...");  
   lcd.init();
   lcd.backlight();
-
+ 
+  lcd.setCursor(0, 0);
+  lcd.print("Conectando WiFi");
+ 
   pinMode(TRIG_PIN, OUTPUT);
   pinMode(ECHO_PIN, INPUT);
-
+ 
   WiFi.begin(SSID, PASSWORD);
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
   }
-
+ 
   Serial.println("\nWi-Fi conectado!");
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("WiFi conectado!");
+  delay(1000);
+ 
+  SPI.begin();      
+  rfid.PCD_Init();  
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Aproxime o");
+  lcd.setCursor(0, 1);
+  lcd.print("cartao RFID");
 }
-
+ 
 float readDistance() {
   digitalWrite(TRIG_PIN, LOW);
   delayMicroseconds(2);
@@ -42,46 +63,68 @@ float readDistance() {
   float duration = pulseIn(ECHO_PIN, HIGH);
   return duration * 0.0344 / 2;
 }
-
-String simulateRFID() {
-  return "12345678";
+ 
+String getRFID() {
+  String uid = "";
+  if (!rfid.PICC_IsNewCardPresent() || !rfid.PICC_ReadCardSerial()) return "";
+ 
+  for (byte i = 0; i < rfid.uid.size; i++) {
+    if (rfid.uid.uidByte[i] < 0x10) uid += "0";
+    uid += String(rfid.uid.uidByte[i], HEX);
+  }
+ 
+  rfid.PICC_HaltA();
+  rfid.PCD_StopCrypto1();
+  uid.toUpperCase();
+  return uid;
 }
-
+ 
 void sendToTago(String rfid, float dist, String status) {
   WiFiClientSecure client;
-  client.setInsecure(); // ignora verificação SSL (requerido no Wokwi)
-
+  client.setInsecure();
+ 
   HTTPClient http;
   http.begin(client, "https://api.tago.io/data");
   http.addHeader("Content-Type", "application/json");
   http.addHeader("Device-Token", TAGO_DEVICE_TOKEN);
-
+ 
   String payload = "[";
   payload += "{\"variable\":\"rfid\",\"value\":\"" + rfid + "\"},";
   payload += "{\"variable\":\"distancia\",\"value\":" + String(dist) + "},";
   payload += "{\"variable\":\"status\",\"value\":\"" + status + "\"}";
   payload += "]";
-
+ 
   int code = http.POST(payload);
   Serial.println("Enviado para TagoIO. Código HTTP: " + String(code));
   Serial.println("Payload: " + payload);
-
+ 
   http.end();
 }
-
+ 
 void loop() {
   if (millis() - lastSend > SEND_INTERVAL) {
     lastSend = millis();
-
-    float dist = readDistance();
-    String rfid = simulateRFID();
-    String status = (dist <= 20) ? "Cheio" : (dist <= 150) ? "Médio" : "Vazio";
-
-    sendToTago(rfid, dist, status);
-
+ 
     lcd.clear();
     lcd.setCursor(0, 0);
-    lcd.print("ID: " + rfid);
+    lcd.print("Aguardando RFID");
+ 
+    float dist = readDistance();
+    String rfidID = getRFID();
+ 
+    if (rfidID == "") {
+      lcd.setCursor(0, 1);
+      lcd.print("Cartao ausente");
+      return;
+    }
+ 
+    String status = (dist <= 20) ? "Cheio" : (dist <= 150) ? "Medio" : "Vazio";
+ 
+    sendToTago(rfidID, dist, status);
+ 
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print("ID: " + rfidID);
     lcd.setCursor(0, 1);
     lcd.print("Est: " + status);
   }
