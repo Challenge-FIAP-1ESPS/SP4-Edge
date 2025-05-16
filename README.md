@@ -44,7 +44,7 @@ Esses componentes operam embarcados no ESP32, que coleta os dados, classifica o 
 ### Camada Aplicação (Interface)
 
 - **Portal Web:** [https://portalsabara.vercel.app/](https://portalsabara.vercel.app/)
-- O portal possui uma seção de cadastro da farmácia que contém um item de menu chamado `Dashboard`, no qual está incorporado o painel gerado no TagoIO via `iframe`.
+- O portal possui uma seção de cadastro da farmácia que contém um item de menu chamado `Dashboard`, no qual está incorporado o painel gerado no TagoIO via `link externo`.
 
 ## Código do Microcontrolador
 
@@ -147,6 +147,4 @@ Logo depois, o fluxo seria o mesmo, com exceção de envio para exibição do da
 ![image](https://github.com/user-attachments/assets/c67e517b-be6a-41cb-8352-4b1e012628f6)
 
 ## Links Externos
-- Documentação do Projeto: https://docs.google.com/document/d/1Z9Fu4Gfrlv3Qu_EUzGQVUTOyZfjbj4FEVXcCdOAh9mo/edit?usp=sharing
-- Pitch:
 - Link Vídeo Explicação: 
